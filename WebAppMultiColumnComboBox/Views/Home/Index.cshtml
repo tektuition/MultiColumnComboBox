@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.common-material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.material.mobile.min.css" />
+<script src="https://kendo.cdn.telerik.com/2018.3.1017/js/jquery.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2018.3.1017/js/kendo.all.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        dataSource = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "/Home/GetAllEmployees",
+                    dataType: "json"
+                }
+            }
+        });
+
+        $("#divEmployees").change(function() {
+            alert($("#divEmployees").val());
+        });
+
+        $("#divEmployees").kendoMultiColumnComboBox({
+            dataTextField: "Name",
+            dataValueField: "EmployeeId",
+            height: 450,
+            columns: [
+                        {
+                            field: "Name",
+                            title: "Name",
+                            width : 150
+                        },
+                        {
+                            field: "Post",
+                            title: "Post",
+                            width: 150
+                        },
+                        {
+                            field: "Salary",
+                            title: "Salary",
+                            width: 150
+                        }
+            ],
+            filter: "contains",
+            filterFields: ["Name", "Post", "Salary"],
+            dataSource: dataSource
+        });
+
+    });
+
+</script>
+
+<h2>MultiColumn Dropdown List</h2>
+
+<div class="col-md-3">
+    <div id="divEmployees" style="width: 100%">
+
+    </div>
+</div>
+
